@@ -55,16 +55,22 @@
     .section-head p { margin: 0; color: var(--muted); font-size: 12px; }
 
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .row {
+      display: flex;
       gap: 12px;
     }
 
     .card {
+      --r: .5714;
       position: relative;
       overflow: hidden;
       min-width: 0;
-      aspect-ratio: 2 / 3;
+      flex: var(--r) 1 0;
+      aspect-ratio: var(--r);
       padding: 0;
       border: 0;
       background: var(--surface);
@@ -122,13 +128,16 @@
       cursor: pointer;
     }
 
+    .card.wide { --r: 1.75; }
+
     @media (max-width: 840px) {
-      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .row { display: grid; grid-template-columns: repeat(2, 1fr); }
+      .card.wide { grid-column: span 2; }
     }
 
     @media (max-width: 480px) {
       .wrap { width: min(100% - 24px, 1180px); }
-      .gallery { gap: 6px; }
+      .gallery, .row { gap: 6px; }
       .caption { right: 10px; bottom: 10px; left: 10px; }
       .caption b { font-size: 12px; }
       .section-head p { display: none; }
@@ -149,14 +158,18 @@
           <p>이미지를 눌러 크게 볼 수 있습니다.</p>
         </div>
         <div class="gallery">
-          <button class="card" data-full="assets/01-gentle-bookstore.webp"><img src="assets/01-gentle-bookstore.webp" alt="다정한 서점 주인 캐릭터" loading="eager"><span class="caption"><b>다정한 서점 주인</b><span>Gentle · Modern</span></span></button>
-          <button class="card" data-full="assets/02-cold-director.webp"><img src="assets/02-cold-director.webp" alt="냉정한 전략 이사 캐릭터" loading="eager"><span class="caption"><b>냉정한 전략 이사</b><span>Cold · Office</span></span></button>
-          <button class="card" data-full="assets/03-sly-bartender.webp"><img src="assets/03-sly-bartender.webp" alt="능글맞은 호텔 바텐더 캐릭터" loading="lazy"><span class="caption"><b>능글맞은 바텐더</b><span>Sly · Night</span></span></button>
-          <button class="card" data-full="assets/04-knight-commander.webp"><img src="assets/04-knight-commander.webp" alt="과묵한 기사단장 캐릭터" loading="lazy"><span class="caption"><b>과묵한 기사단장</b><span>Loyal · Fantasy</span></span></button>
-          <button class="card" data-full="assets/05-gentle-doctor.webp"><img src="assets/05-gentle-doctor.webp" alt="다정한 응급의학과 의사 캐릭터" loading="lazy"><span class="caption"><b>지친 듯 다정한 의사</b><span>Calm · Medical</span></span></button>
-          <button class="card" data-full="assets/06-occult-detective.webp"><img src="assets/06-occult-detective.webp" alt="미스터리한 오컬트 탐정 캐릭터" loading="lazy"><span class="caption"><b>오컬트 전문 탐정</b><span>Gothic · Mystery</span></span></button>
-          <button class="card" data-full="assets/07-swimmer.webp"><img src="assets/07-swimmer.webp" alt="밝은 수영 선수 캐릭터" loading="lazy"><span class="caption"><b>햇살 같은 수영 선수</b><span>Bright · Sports</span></span></button>
-          <button class="card" data-full="assets/08-underworld-heir.webp"><img src="assets/08-underworld-heir.webp" alt="위험한 후계자 캐릭터" loading="lazy"><span class="caption"><b>위험한 후계자</b><span>Possessive · Noir</span></span></button>
+          <div class="row">
+            <button class="card" data-full="assets/01-bookstore-owner.webp"><img src="assets/01-bookstore-owner.webp" alt="책장 앞에서 수줍게 웃는 서점 주인 캐릭터" loading="eager"><span class="caption"><b>다정한 서점 주인</b><span>Gentle · Modern</span></span></button>
+            <button class="card" data-full="assets/02-cold-director.webp"><img src="assets/02-cold-director.webp" alt="밤 사무실에서 넥타이를 푸는 이사 캐릭터" loading="eager"><span class="caption"><b>냉정한 전략 이사</b><span>Cold · Office</span></span></button>
+            <button class="card" data-full="assets/03-bartender.webp"><img src="assets/03-bartender.webp" alt="바 카운터에 기대 웃는 바텐더 캐릭터" loading="eager"><span class="caption"><b>능글맞은 바텐더</b><span>Sly · Night</span></span></button>
+            <button class="card" data-full="assets/04-doctor.webp"><img src="assets/04-doctor.webp" alt="새벽 병원 옥상에서 커피를 든 의사 캐릭터" loading="eager"><span class="caption"><b>지친 듯 다정한 의사</b><span>Calm · Medical</span></span></button>
+          </div>
+          <div class="row">
+            <button class="card" data-full="assets/05-occult-detective.webp"><img src="assets/05-occult-detective.webp" alt="촛불 켜진 서고에서 타로 카드를 보는 탐정 캐릭터" loading="lazy"><span class="caption"><b>오컬트 전문 탐정</b><span>Gothic · Mystery</span></span></button>
+            <button class="card" data-full="assets/06-court-mage.webp"><img src="assets/06-court-mage.webp" alt="도서관에서 빛나는 마법서를 든 궁정 마법사 캐릭터" loading="lazy"><span class="caption"><b>호기심 많은 궁정 마법사</b><span>Bright · Fantasy</span></span></button>
+            <button class="card wide" data-full="assets/07-pianist.webp"><img src="assets/07-pianist.webp" alt="빈 공연장에서 그랜드 피아노를 연주하는 피아니스트 캐릭터" loading="lazy"><span class="caption"><b>고독한 피아니스트</b><span>Melancholy · Classic</span></span></button>
+            <button class="card" data-full="assets/08-parkour-runner.webp"><img src="assets/08-parkour-runner.webp" alt="노을 진 옥상 사이를 뛰어넘는 파쿠르 러너 캐릭터" loading="lazy"><span class="caption"><b>자유로운 파쿠르 러너</b><span>Free · Street</span></span></button>
+          </div>
         </div>
       </section>
 
